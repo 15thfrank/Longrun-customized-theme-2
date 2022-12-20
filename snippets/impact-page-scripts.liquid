@@ -1,0 +1,330 @@
+
+<div class="back-to-top prevswitch" id="prevswitch" style="display: flex;align-items: center;">
+  <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/image003.png?v=1647461839" alt="" style="transform: rotate(35deg);height: 40px;margin-right: 10px;">
+  <span id="prevsswitchtext" style="float: right;" style="transform: rotate(270deg);"></span> 
+</div>
+<div class="back-to-top nextswitch" id="nextswitch" style="display: flex;align-items: center;">
+  <span id="nextswitchtext" style="float: left;"></span>
+  <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/image003.png?v=1647461839" alt="" height="35" style="transform: rotate(210deg);height: 40px;margin-left: 10px;">
+</div>
+
+
+<script type="text/javascript">
+
+  const sectionsArray = document.querySelectorAll(".shopify-section");
+
+  const subpagesections = [];
+
+  const nodelist2Array = () => {
+    sectionsArray.forEach(section => {
+      if (section.getAttribute('id') != "shopify-section-header-custom" && section.getAttribute('id') != "shopify-section-footer-custom" && section.getAttribute('class').search("impact-page-hero") == -1 && section.getAttribute('id').search("__main") == -1) {
+        subpagesections.push(section)
+      }
+    });
+  }
+
+  let subpagesectionsbreak = 0;
+
+  let sub1_bcorp = [];
+  let sub2_LCA = [];
+  let sub3_supplychain = [];
+  let sub4_nextsteps = [];
+
+  const nullSections =  () => {
+    subpagesections.forEach(section => {
+      if (section.classList.contains('nullSection') != true) {
+        section.classList.add('nullSection')
+      }
+    })
+  }
+
+  const assignSections = () => {
+    subpagesections.forEach(section => {
+      nullSections()
+      if (section.classList.contains('subsection-pagebreak')) {
+          subpagesectionsbreak++
+      }
+      if (subpagesectionsbreak == 0){
+          sub1_bcorp.push(section)
+      } else if (subpagesectionsbreak == 1) {
+          sub2_LCA.push(section)
+      } else if (subpagesectionsbreak == 2) {
+          sub3_supplychain.push(section)
+      } else if (subpagesectionsbreak == 3) {
+          sub4_nextsteps.push(section)
+      }
+    })
+  }
+
+  const buttonsList = document.querySelectorAll('.impactlinks');
+  const topButtons = () => {
+    buttonsList.forEach(button => {
+      button.addEventListener('click', (event) => {
+        clearActiveBtn();
+        nullSections();
+        button.classList.remove('btn--secondary');
+        button.classList.add('btn');
+        nullSections();
+        showSections(button);
+        refreshState();
+        scrollToFirstSection();
+      });
+    });
+  };
+
+  const showSections = (button) => {
+    if (button.getAttribute("id") == "sub1_bcorp") {
+      hideSections();
+      sub1_bcorp.forEach(sub1 => {
+        sub1.classList.remove('nullSection')
+      })
+    }else if (button.getAttribute("id") == "sub2_LCA") {
+      hideSections();
+      sub2_LCA.forEach(sub2 => {
+        sub2.classList.remove('nullSection')
+      })
+    }else if (button.getAttribute("id") == "sub3_supplychain") {
+      hideSections();
+      sub3_supplychain.forEach(sub3 => {
+        sub3.classList.remove('nullSection')
+      })
+    }else if (button.getAttribute("id") == "sub4_nextsteps") {
+      hideSections();
+      sub4_nextsteps.forEach(sub4 => {
+        sub4.classList.remove('nullSection')
+      })
+    }
+  }
+
+  const hideSections = () => {
+    sub1_bcorp.forEach(sub1 => {
+      if (sub1.classList.contains('nullSection') != true) {
+        sub1.classList.add('nullSection')
+      }
+    })
+    sub2_LCA.forEach(sub2 => {
+      if (sub2.classList.contains('nullSection') != true) {
+        sub2.classList.add('nullSection')
+      }
+    })
+    sub3_supplychain.forEach(sub3 => {
+      if (sub3.classList.contains('nullSection') != true) {
+        sub3.classList.add('nullSection')
+      }
+    })
+    sub4_nextsteps.forEach(sub4 => {
+      if (sub4.classList.contains('nullSection') != true) {
+        sub4.classList.add('nullSection')
+      }
+    })
+  }
+
+  const scrollToFirstSection = () => {
+
+    if (sub1_bcorp[0].classList.contains('nullSection') != true) {
+      sub1_bcorp[0].scrollIntoView()
+    } else if (sub2_LCA[0].classList.contains('nullSection') != true){
+      sub2_LCA[0].scrollIntoView()
+    } else if (sub3_supplychain[0].classList.contains('nullSection') != true) {
+      sub3_supplychain[0].scrollIntoView()
+    } else if (sub4_nextsteps[0].classList.contains('nullSection') != true) {
+      sub4_nextsteps[0].scrollIntoView()
+    }
+  }
+
+  const clearActiveBtn = () => {
+    buttonsList.forEach(btn => {
+      btn.classList.remove('btn');
+      btn.classList.add('btn--secondary');
+    });
+  };
+
+  const selectDefaultBtn = () => {
+    buttonsList[0].classList.remove('btn--secondary');
+    buttonsList[0].classList.add('btn');
+    sub1_bcorp.forEach(sub1 => {
+      sub1.classList.remove('nullSection')
+    })
+  };
+
+  const prevswitch = () => {
+    let prevpoint = 0;
+    let nextpoint = 0;
+    let listlength = buttonsList.length - 1;
+
+    for (let currentpoint = 0; currentpoint < buttonsList.length; currentpoint++) {
+      if (buttonsList[currentpoint].classList.contains("btn") == true) {
+        if (currentpoint == 0) {
+          prevpoint = listlength;
+          clearActiveBtn();
+          buttonsList[prevpoint].classList.remove('btn--secondary');
+          buttonsList[prevpoint].classList.add('btn');
+          refreshState();
+          scrollToFirstSection();
+          break
+        } else if (currentpoint > 0 && currentpoint < listlength){
+          prevpoint = currentpoint - 1;
+          clearActiveBtn();
+          buttonsList[prevpoint].classList.remove('btn--secondary');
+          buttonsList[prevpoint].classList.add('btn');
+          refreshState();
+          scrollToFirstSection();
+          break
+        } else if (currentpoint == listlength) {
+          prevpoint = currentpoint - 1;
+          clearActiveBtn();
+          buttonsList[prevpoint].classList.remove('btn--secondary');
+          buttonsList[prevpoint].classList.add('btn');
+          refreshState();
+          scrollToFirstSection();
+          break
+        }
+      }
+    }
+  }
+
+  const nextswitch = () => {
+    let nextpoint = 0;
+    let listlength = buttonsList.length - 1;
+
+    for (let currentpoint = 0; currentpoint < buttonsList.length; currentpoint++) {
+      if (buttonsList[currentpoint].classList.contains("btn") == true) {
+        if (currentpoint == 0) {
+          nextpoint = currentpoint + 1;
+          clearActiveBtn();
+          buttonsList[nextpoint].classList.remove('btn--secondary');
+          buttonsList[nextpoint].classList.add('btn');
+          refreshState();
+          scrollToFirstSection();
+          break
+        } else if (currentpoint > 0 && currentpoint < listlength){
+          nextpoint = currentpoint + 1;
+          clearActiveBtn();
+          buttonsList[nextpoint].classList.remove('btn--secondary');
+          buttonsList[nextpoint].classList.add('btn');
+          refreshState();
+          scrollToFirstSection();
+          break
+        } else if (currentpoint == listlength) {
+          nextpoint = 0;
+          clearActiveBtn();
+          buttonsList[nextpoint].classList.remove('btn--secondary');
+          buttonsList[nextpoint].classList.add('btn');
+          refreshState();
+          scrollToFirstSection();
+          break
+        }
+      }
+    }
+  }
+
+  document.getElementById('prevswitch').addEventListener('click', prevswitch);
+  document.getElementById('nextswitch').addEventListener('click', nextswitch);
+
+  const refreshState = () => {
+    let prevpoint = 0
+    let nextpoint = 0
+    let listlength = buttonsList.length - 1
+
+    for (let currentpoint = 0; currentpoint < buttonsList.length; currentpoint++) {
+      if (buttonsList[currentpoint].classList.contains("btn") == true) {
+        if (currentpoint == 0) {
+          prevpoint = listlength;
+          nextpoint = currentpoint + 1;
+          document.getElementById("prevsswitchtext").innerText = buttonsList[prevpoint].innerText;
+          document.getElementById("nextswitchtext").innerText = buttonsList[nextpoint].innerText;
+          showSections(buttonsList[currentpoint]);
+          break
+        } else if (currentpoint > 0 && currentpoint < listlength){
+          prevpoint = currentpoint - 1;
+          nextpoint = currentpoint + 1;
+          document.getElementById("prevsswitchtext").innerText = buttonsList[prevpoint].innerText;
+          document.getElementById("nextswitchtext").innerText = buttonsList[nextpoint].innerText;
+          showSections(buttonsList[currentpoint]);
+          break
+        } else if (currentpoint == listlength) {
+          prevpoint = currentpoint - 1;
+          nextpoint = 0;
+          document.getElementById("prevsswitchtext").innerText = buttonsList[prevpoint].innerText;
+          document.getElementById("nextswitchtext").innerText = buttonsList[nextpoint].innerText;
+          showSections(buttonsList[currentpoint]);
+          break
+        }
+      }
+    }
+  }
+
+
+  window.addEventListener('load', nodelist2Array)
+  window.addEventListener('load', assignSections);
+  window.addEventListener('load', topButtons);
+  window.addEventListener('load', selectDefaultBtn);
+  window.addEventListener('load', refreshState);
+
+
+  $(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if (height > 100) {
+      $('.back-to-top').fadeIn();
+    } else {
+      $('.back-to-top').fadeOut();
+    }
+  });
+
+</script>
+
+
+<style>
+  .impactminipage {
+      display: none;
+      animation: fadeEffect 1s;
+  }
+  @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+  }
+  .impactminipage.current {
+      display: inherit;
+  }
+  .impactlinks.current{
+      background: #fff !important;
+      border-color: #fff;
+      color: #4a7d71;
+  }
+  .impactlinks {margin: 10px !important;}
+  @media screen and (max-width: 600px) {
+      .impactlinks{display:block;}
+  }
+
+  .prevswitch{
+    float: left;
+    left:20px;
+  }
+  .nextswitch{
+    float: right;
+    right:20px;
+  }
+  .prevswitch, .nextswitch{
+    position:fixed;
+    z-index: 9;
+    top:45%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.7em;
+    word-wrap: break-word;
+    max-width: 170px;
+    /*max-height: 70px; */
+    font-style: italic;
+    padding: 15px;
+    background: rgba(234, 234, 234, 0.5);;
+    border-radius: 7px;
+    color:#4a7d71;
+    display: none;
+    transition: 0.7s easein;
+  }
+  .prevswitch i, .nextswitch i{
+    color:#4a7d71;
+  }
+
+  .nullSection {display: none !important;transition: 0.7s easein;}
+</style>

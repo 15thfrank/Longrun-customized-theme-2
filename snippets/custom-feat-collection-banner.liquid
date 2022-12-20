@@ -1,0 +1,9 @@
+<div class="card" data-animate>
+  <a style="cursor: default;" class="card__wrapper{% if section.settings.show_spacing %} card__wrapper--padding{% endif %} text-center">
+    <div class="card__image-wrapper{% if settings.product_image_spacing %} card__image-wrapper--padding{% endif %}" style="background-image: url('{{bannerimage}}');position: relative;background-position: center;background-size: cover;background-repeat: no-repeat;height: 100%;">
+      <div class="card__info" style="height: 100%; width: 100%;display: flex;background-color: {{section.settings.overlaycolor}}{% if section.settings.showoverlay %}80{% else %}00{% endif %};align-items: center;">
+        <div class="card__name h4" style="color: {{section.settings.bannertextcolor}};margin: 0 auto;">{{ section.settings.bannertext}}</div>
+      </div>
+    </div>
+  </a>
+</div>

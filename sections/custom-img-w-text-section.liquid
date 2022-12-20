@@ -1,0 +1,110 @@
+<div class="index-section ">
+    <div class="page-width ch-imgtxtsection" style="margin-top: 80px; margin-bottom: 80px;">
+      {% if section.settings.imgpos == "left" %}
+        <div class="image-wrap ch-imgtxtsection__item">
+          {% if section.settings.img != blank %}
+              {%- assign img_url = section.settings.img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <img class="cus-st-img lazyload"
+                  src="{{ img_url }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540]"
+                  data-aspectratio="{{ section.settings.img.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ section.settings.img.alt }}">
+          {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="ch-imgtxtsection__item {%if section.settings.largetext == true %}enlargetext{% endif %}" style="margin-top: 10px;">
+        <p style="text-align:{{section.settings.textalign}};">{{ section.settings.text }}</p>
+      </div>
+      {% if section.settings.imgpos == "right" %}
+        <div class="image-wrap ch-imgtxtsection__item">
+          {% if section.settings.img != blank %}
+              {%- assign img_url = section.settings.img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <img class="cus-st-img lazyload"
+                  src="{{ img_url }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540]"
+                  data-aspectratio="{{ section.settings.img.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ section.settings.img.alt }}">
+          {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+    "name": "CS Image w/ Text",
+    "class": "custom-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "img",
+        "label": "Select image"
+      },
+      {
+        "type": "select",
+        "id": "imgpos",
+        "label": "Image on left or right?",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis aliquet magna ac imperdiet. Morbi gravida elit nisl, eu volutpat felis iaculis nec. Ut eget imperdiet orci. Cras eget sem nec mi consequat pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit finibus egestas.</p>"
+      },
+      {
+        "type": "select",
+        "id": "textalign",
+        "label": "Text Align",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "checkbox",
+        "id": "largetext",
+        "label": "Enlarge text?",
+        "default": true,
+        "info": "Check to make text larger."
+      }
+    ], 
+   "presets": [
+       {
+           "category": "Custom Sections",
+           "name":"CS Image w/ Text"
+       }
+   ]
+  }
+{% endschema %}

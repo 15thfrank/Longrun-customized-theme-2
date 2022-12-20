@@ -1,0 +1,42 @@
+<div class="index-section " style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="page-width">
+      <div class="grid text-center">
+        <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
+          
+          
+            <div class="rte">
+              {% if section.settings.img != blank %}
+                {%- assign img_url = section.settings.img | img_url: 'master' -%}
+                <img class="cus-st-img lazyload"
+                  src="{{ img_url }}"
+                  data-aspectratio="{{ section.settings.img.aspect_ratio }}"
+                  alt="{{ section.settings.img.alt }}">
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% schema %}
+{
+    "name": "CS Standalone Img or Gif",
+    "class": "custom-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "img",
+        "label": "Select image"
+      }
+    ],
+    "presets": [
+      {
+          "name": "CS Standalone Img or Gif",
+          "category": "Custom Sections"
+      }
+    ]
+  }
+{% endschema %}

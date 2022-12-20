@@ -1,0 +1,49 @@
+{% if section.settings.page_title_enable or section.settings.page_content_enable %}
+  <div class="page-width">
+    {% if section.settings.page_title_enable %}
+    <header class="section-header text-center">
+      <h1 class="section-header__title h2">{{ page.title }}</h1>
+    </header>
+    {% endif %}
+    {% if section.settings.page_content_enable %}
+    <div class="grid">
+      <div class="grid__item medium-up--four-fifths medium-up--push-one-tenth">
+        <div class="rte">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+
+{% if section.settings.overlay_header %}
+  {% include 'header-custom-styles' %}
+{% endif %}
+
+  {% schema %}
+  {
+    "name": "Page Content",
+    "class": "custom-section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "page_title_enable",
+        "label": "Show page title"
+      },
+      {
+        "type": "checkbox",
+        "id": "page_content_enable",
+        "label": "Show page admin content",
+        "info": "This shows the content from the admin area."
+      },
+      {
+        "type": "checkbox",
+        "id": "overlay_header",
+        "label": "Use overlay header",
+        "default": false
+      }
+    ]
+  }
+  {% endschema %}

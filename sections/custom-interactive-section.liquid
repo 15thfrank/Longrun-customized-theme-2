@@ -1,0 +1,219 @@
+{% assign bgcolor = section.settings.entry_list_bg%}
+{% assign textcolor = section.settings.entry_list_textcolor %}
+
+{%- assign blockcount = 1 -%}
+
+
+{% style %}
+
+.logo-bar__item, .int-section-header {
+    transition: 0.5s;
+    margin-bottom: 35px;
+}
+
+.item--{{section.id}} {
+  opacity: 0.5;
+}
+
+.hovered__item {
+  opacity: 1;
+}
+{% endstyle %}
+
+<script type="text/javascript">
+
+  const checkData = function() {
+    let heading = ".first--"+'{{section.id}}'+"--headingheading";
+    let desc = ".first--"+'{{section.id}}'+"--descdesc";
+    let defaultheading = document.querySelector(heading);
+    let defaultdesc =  document.querySelector(desc)
+
+    let displayHeading = document.getElementById('entryheading');
+    let displayDesc = document.getElementById('entrytext');
+
+    displayHeading.innerHTML = defaultheading.textContent;
+    displayDesc.innerHTML = defaultdesc.textContent;
+
+    let queryitems = ".item--"+'{{section.id}}';
+    let firstitem = document.querySelector(queryitems);
+
+    firstitem.classList.add("hovered__item")
+  }
+
+  const updateData = function(block) {
+    let targetid = block.getAttribute("id");
+    let targetdata = document.getElementById(targetid)
+    
+    targetHeading = targetdata.childNodes[3];
+    targetDesc = targetdata.childNodes[5];
+
+    let displayHeading = document.getElementById('entryheading');
+    let displayDesc = document.getElementById('entrytext');
+
+    displayHeading.innerHTML = "";
+    displayDesc.innerHTML = "";
+
+    displayHeading.innerHTML = targetHeading.textContent;
+    displayDesc.innerHTML = targetDesc.textContent;
+
+    removeHovered();
+    block.classList.add("hovered__item")
+
+  };
+
+  const removeHovered = function() {
+    let queryitems = ".item--"+'{{section.id}}';
+    let items = document.querySelectorAll(queryitems);
+
+    items.forEach(item => {
+      item.classList.remove("hovered__item")
+    });
+  }
+
+  window.onload = checkData;
+
+</script>
+
+<div class="c_logo_list text-center" data-aos="logo__animation" style="padding-top: 35px;padding-bottom: 35px;{%- if bgcolor -%}background: {{bgcolor}};{%- endif -%}" id="{{section.id}}">
+  
+  <div class="logo-bar logo-bar--{{ section.id }} image-bar image-bar--{{ section.id }}">
+      {%- for block in section.blocks -%}
+          <div class="logo-bar__item image-bar__flex image-bar__{{ section.blocks.size }}-column item--{{section.id}}" {{ block.shopify_attributes }} onmouseover="updateData(this);" id="{{block.id}}">
+              {% if block.settings.entry_link != blank %}
+                  <a href="{{block.settings.entry_link}}" class="logo-bar__link">
+              {% endif %}
+              {% if block.settings.entry_img != blank %}
+                  {%- assign img_url = block.settings.entry_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  <img class="logo-bar__image lazyload"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 540, 720]"
+                      data-aspectratio="{{ block.settings.entry_img.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ block.settings.entry_img.alt }}">
+              {% else %}
+                  {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+              {% if block.settings.entry_link != blank %}
+                  </a>
+              {% endif %}
+              <p class="display-none intsection--{{block.id}}--heading first--{{section.id}}--headingheading">{{block.settings.entry_heading}}</p>
+              <p class="display-none intsection--{{block.id}}--desc first--{{section.id}}--descdesc"> {{block.settings.entry_desc}} </p>
+          </div>
+      {%- endfor -%}
+  </div>
+
+  <div class="int-section-header">
+    <h2 class="section-header__title" style="{%- if textcolor -%} color: {{textcolor}}; {%- endif -%}" id="entryheading">{{ block.settings.entry_heading | escape }}</h2>
+    <p style="{%- if textcolor -%} color: {{textcolor}}; {%- endif -%}max-width: 100ch;margin: 10px auto;" id="entrytext"> {{block.settings.entry_desc}}</p>
+  </div>
+  
+  {% if section.settings.entry_button_show == true %}
+        <a class="btn" style="margin-top:30px;" href="{{section.settings.entry_button_link}}" {% if section.settings.entry_button_nt == true %}target="_blank"{% endif %}>{{section.settings.entry_button_text}}</a>
+    {% endif %}
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "CS Interactive Section",
+    "class": "custom-section",
+    "max_blocks": 5,
+    "settings": [
+      {
+        "type": "color",
+        "id": "entry_list_bg",
+        "label": "Background color",
+        "default": "#e6f0ea"
+      },
+      {
+        "type": "color",
+        "id": "entry_list_textcolor",
+        "label": "Heading and description color",
+        "default": "#000"
+      },
+
+      {
+        "type": "header",
+        "content": "Button settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "entry_button_show",
+        "label": "Display button?",
+        "default": false,
+        "info": "Check to display button."
+      },
+      {
+        "type": "url",
+        "id": "entry_button_link",
+        "label": "URL"
+      },
+      {
+        "type": "text",
+        "id": "entry_button_text",
+        "label": "Button text",
+        "default": "Button Text"
+      },
+      {
+        "type": "checkbox",
+        "id": "entry_button_nt",
+        "label": "New tab?",
+        "default": false,
+        "info": "Check to open button link in new tab."
+      }
+    ],
+
+    "blocks": [
+     {
+      "type": "select",
+      "name": "select",
+      "settings": [
+        {
+          "type": "text",
+          "id": "entry_heading",
+          "label": "Heading",
+          "default": "LongRun"
+        },
+        {
+          "type": "textarea",
+          "id": "entry_desc",
+          "label": "Description",
+          "default": "We are LongRun, a new Canadian shoe brand that puts the environment first."
+        },
+        {
+          "type": "url",
+          "id": "entry_link",
+          "label": "URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "entry_img",
+          "label": "Select image"
+        }
+      ]
+     }
+
+    ],
+   "presets": [
+     {
+       "category": "Custom Sections",
+       "name":"CS Interactive Section",
+       "blocks": [
+          {
+           "type": "select"
+          },
+          {
+           "type": "select"
+          },
+          {
+           "type": "select"
+          },
+          {
+           "type": "select"
+          }
+       ]
+     }
+   ]
+  }
+{% endschema %}

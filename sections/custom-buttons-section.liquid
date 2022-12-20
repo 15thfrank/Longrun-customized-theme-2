@@ -1,0 +1,103 @@
+<div class="page-width" style="margin-top: 150px;margin-bottom: 150px;">
+  {% if section.settings.show_primary %}
+    <div class="btn-section__primary-btn">
+      <a class="btn" href="{{section.settings.pry_btn_link}}" {% if section.settings.pry_btn_tab %}target="_blank"{% endif %}>{{section.settings.pry_btn_text}}</a>
+    </div>
+  {% endif %}
+  
+  <div class="btn-section__secondary-btns">
+    {% for block in section.blocks %}
+      {% if block.settings.btn_show %}
+        <a class="btn btn--secondary" href="{{block.settings.btn_url}}" {% if block.settings.btn_tab %}target="_blank"{% endif %}>{{block.settings.btn_text}}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+</div>
+
+
+{% schema %}
+  {
+    "name": "CS Buttons Section",
+    "class": "custom-section",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary Button Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_primary",
+        "label": "Use primary button?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "pry_btn_text",
+        "label": "Button text",
+        "default": "Primary Button"
+      },
+      {
+        "type": "url",
+        "id": "pry_btn_link",
+        "label": "Button link"
+      },
+      {
+        "type": "checkbox",
+        "id": "pry_btn_tab",
+        "label": "Open in new tab?",
+        "default": false
+      }
+    ],
+    "blocks": [
+        {
+            "type": "button",
+            "name": "button",
+            "settings": [
+              {
+                "type": "checkbox",
+                "id": "btn_show",
+                "label": "Display button?",
+                "default": true
+              },
+              {
+                "type": "text",
+                "id": "btn_text",
+                "label": "Button text",
+                "default": "Button Text"
+              },
+              {
+                "type": "url",
+                "id": "btn_url",
+                "label": "Link"
+              },
+              {
+                "type": "checkbox",
+                "id": "btn_tab",
+                "label": "Open in new tab?",
+                "default": false,
+                "info": "Check if you would like to open link in new tab."
+              }
+            ]
+        }
+    ],
+   "presets": [
+       {
+           "category": "Custom Sections",
+           "name":"CS Buttons Section",
+           "blocks": [
+                {
+                    "type": "button"
+                },
+                {
+                    "type": "button"
+                },
+                {
+                    "type": "button"
+                }
+           ]
+       }
+   ]
+  }
+{% endschema %}

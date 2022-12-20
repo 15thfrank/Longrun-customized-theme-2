@@ -1,0 +1,262 @@
+{%- if section.settings.show_overlay -%}
+  <style>
+    #Slideshow-{{ section.id }} .slideshow__overlay::before {
+      background-color: {{ section.settings.overlay_color }};
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.00 }};
+    }
+
+    #Slideshow-{{ section.id }} .slideshow__heading,
+    #Slideshow-{{ section.id }} .slideshow__button-label {
+      color: {{ section.settings.overlay_text }};
+    }
+  </style>
+{%- endif -%}
+
+
+{%- comment -%}
+  A centered call to action button is displayed if the corresponding setting is
+  enabled or if there is just one slide with a call to action button.
+{%- endcomment -%}
+{%- assign show_center_cta = section.settings.center_cta -%}
+{%- comment -%}
+{%- if section.blocks.size == 1 and first_block.settings.cta_link != blank -%}
+  {%- assign show_center_cta = true -%}
+{%- endif -%}
+{%- endcomment -%}
+
+{%- if section.settings.slider_height == 'adapt' -%}
+  {%- comment -%}
+    'min_aspect_ratio' is the minimum aspect ratio of images shown without
+    whitespace when 'home_hero_height' is set to 'adapt'.
+    The aspect ratio values for the first image in the slideshow will be used
+    unless it is blank, in that case a ratio of 2:1 will be used.
+  {%- endcomment -%}
+  {%- if section.settings.image.aspect_ratio == blank -%}
+    {%- assign min_aspect_ratio = 2.0 -%}
+  {%- else -%}
+    {%- assign min_aspect_ratio = section.settings.image.aspect_ratio -%}
+  {%- endif -%}
+  {%- assign wrapper_height = 100 | divided_by: min_aspect_ratio -%}
+  {%- style -%}
+    #Slideshow-{{ section.id }} {
+      height: {{- wrapper_height -}}vw;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+<div class="slideshow--{{ section.settings.slider_height }}{% if show_center_cta %} slideshow--center-cta{% endif %}" data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+  
+  
+  {%- assign bgimg = section.settings.image | img_url: 'master' -%}
+  <div id="Slideshow-{{ section.id }}" class="slideshow" role="region" aria-describedby="slideshow-info" tabindex="-1" aria-label="slideshow" style="{% if section.settings.image != blank %}background: url('{{bgimg}}') top no-repeat fixed;background-size: cover;{% endif %}">
+    <div style="position: absolute;height: 100%;width: 100%;background-color: {{section.settings.overlay_color}}{{-section.settings.overlay_opacity-}};">&nbsp;</div>
+    <div class="slideshow__text-container page-width">
+
+      <div class="slideshow__text-content" data-animate>
+        {%- if section.settings.title != blank -%}
+          <h2 class="slideshow__heading h1">
+            {{ section.settings.title | escape }}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <h4 class="slideshow__heading h4 customh4">
+            {{ section.settings.subtitle | escape }}
+          </h4>
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+          <button class="slideshow__heading-cta btn--secondary{% if section.settings.slider_height == 'adapt' %} small--hide{% endif %} impactlinks" style="margin-left: 10px; margin-right: 10px;opacity: 1;" id="{{block.settings.subpagehandle}}">
+            {{ block.settings.subpage | escape }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+
+  {%- comment -%}{%- if section.settings.slider_height == 'adapt' -%}
+    <div class="slideshow__text-container slideshow__text-container-mobile page-width">
+      {%- if section.blocks.size == 1 and first_block.settings.cta_link != blank -%}
+        <a href="{{ first_block.settings.cta_link }}" class="slideshow__button-cta-single medium-up--hide btn">
+          {{ first_block.settings.cta | escape }}
+        </a>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        <div class="slideshow__text-content slideshow__text-content-mobile" data-animate>
+          {%- if block.settings.title != blank -%}
+            <h2 class="slideshow__heading h1">
+              {{ block.settings.title | escape }}
+            </h2>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}{%- endcomment -%}
+
+  <p id="slideshow-info" class="visually-hidden" aria-hidden="true">
+    {{- 'sections.slider.navigation_instructions' | t -}}
+  </p>
+</div>
+
+<style>
+  button.btn--secondary{color:{{section.settings.overlay_text}}}
+</style>
+  
+
+{% schema %}
+{
+  "name": "CS Impact Page Hero",
+  "class": "impact-page-hero",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "slider_height",
+      "label": "Height",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full screen"
+        },
+        {
+          "value": "adapt",
+          "label": "Adapt"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "center_cta",
+      "label": "Center buttons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Image alignment",
+      "default": "center center",
+      "options": [
+        {
+          "label": "Top left",
+          "value": "top left"
+        },
+        {
+          "label": "Top center",
+          "value": "top center"
+        },
+        {
+          "label": "Top right",
+          "value": "top right"
+        },
+        {
+          "label": "Middle left",
+          "value": "center left"
+        },
+        {
+          "label": "Middle center",
+          "value": "center center"
+        },
+        {
+          "label": "Middle right",
+          "value": "center right"
+        },
+        {
+          "label": "Bottom left",
+          "value": "bottom left"
+        },
+        {
+          "label": "Bottom center",
+          "value": "bottom center"
+        },
+        {
+          "label": "Bottom right",
+          "value": "bottom right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Tell your story"
+    },
+    {
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+  ],
+  "blocks": [
+   {
+      "type": "subpages",
+      "name": "Subpages",
+      "settings": [
+        {
+          "type": "text",
+          "id": "subpage",
+          "label": "Subpage name",
+          "default": "View more"
+        },
+        {
+          "type": "text",
+          "id": "subpagehandle",
+          "label": "Subpage handle",
+          "info": "Subpage name in small letters and without spaces. Replace spaces with dash -"
+        }
+     ]
+   }
+
+  ],
+  "presets": [
+    {
+      "name": "CS Impact Page Hero",
+      "category": "Custom Sections",
+      "settings": {
+        "slider_height": "adapt"
+      },
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

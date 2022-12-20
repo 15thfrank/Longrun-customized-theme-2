@@ -1,0 +1,467 @@
+<style>
+  .shoematerials {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  #shoematerials button:hover, #shoematerials button.active, .matlinks.current {
+    background-color: #4a7d71;
+    color: #f4f4f4;
+  }
+  
+  .singledesc {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+    animation: fadeEffect 1s;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+  }
+
+  @keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  .singledesc.current {
+    display: inherit;
+    margin-top: 20px;
+  }
+
+  #shoematerials {
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  .matlinks {
+    padding: 10px;
+    border: 1px solid #4a7d71;
+    margin-top: 10px;
+  }
+  .section-header {
+    margin-bottom: 10px;
+  }
+  .feature-row.aos-init.aos-animate {margin-top: 30px;}
+
+  .c_logo_list {
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+  .logo-bar__item, #section-header {
+      transition: 0.5s
+  }
+  .c_logo_list {
+    display: none;
+  }
+  .activellist{
+    display: block !important;
+  }
+</style>
+
+<div class="index-section" style="margin-top: 45px; margin-bottom: 45px;">
+    <div class="page-width" style="padding-bottom: 20px;padding-bottom: 20px;border: 1px solid #4a7d71;padding-top: 20px;border-radius: 15px;">
+      	{% if section.settings.section_heading %}
+          <div class="section-header">
+            <h2 class="section-header__title text-center">{{section.settings.section_heading}}</h2>
+          </div>
+        {% endif %}
+        <div id="shoematerials">
+          {% for block in section.blocks %}
+            {% if block.settings.material_handle != blank %}
+              <button class="matlinks " data-tab="{{block.settings.material_handle}}">{{block.settings.material}}</button>
+            {% endif %}
+          {% endfor %}
+
+        </div>
+        
+        <div class="feature-row materialdescription" data-aos>
+          {% for block in section.blocks %}
+
+            <!--Material content-->
+            <div id="{{block.settings.material_handle}}" class="singledesc " style="flex-wrap: wrap;">
+              <div class="feature-row aos-init aos-animate">
+                <div class="feature-row__item">
+                    <div style="margin: 0 auto; max-width: {{ block.settings.image_width }}px;">
+                      {% if block.settings.content_one_img != blank %}
+                        <div class="image-wrap">
+                          {%- assign c1img = block.settings.content_one_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                          <img class="feature-row__image lazyload"
+                              data-src="{{ c1img }}"
+                              data-widths="[360, 540, 720, 900, 1080]"
+                              data-aspectratio="{{ block.settings.content_one_img.aspect_ratio }}"
+                              data-sizes="auto"
+                              alt="{{ block.settings.content_one_img.alt }}">
+                        </div>
+                      {% else %}
+                        <div class="image-wrap">
+                          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                      {% endif %}
+                    </div>
+                </div>
+          
+                <div class="feature-row__item feature-row__text feature-row__text--left larger-text" style="padding: 40px;display: flex;align-items: center;">
+                  <div class="materials-content-wrapper">
+                    {% if block.settings.content_one_heading != blank %}
+                      <h2 class="h3">{{ block.settings.content_one_heading | escape }}</h2>
+                    {% endif %}
+                    {% if block.settings.content_one_desc != blank %}
+                      <div class="rte featured-row__subtext" id="">{{block.settings.content_one_desc}}</div>
+                    {% endif %}
+                    {% if block.settings.content_one_icons %}
+                      <div class="matsection-content-icons-wrapper">
+                        {% if block.settings.content_one_icon1 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_one_icon1 | img_url: '60x'}}" alt="{{ block.settings.content_one_icon1.alt }}">
+                        {% endif %}
+                        {% if block.settings.content_one_icon2 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_one_icon2 | img_url: '60x'}}" alt="{{ block.settings.content_one_icon2.alt }}">
+                        {% endif %}
+                        {% if block.settings.content_one_icon3 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_one_icon3 | img_url: '60x'}}" alt="{{ block.settings.content_one_icon3.alt }}">
+                        {% endif %}
+                        {% if block.settings.content_one_icon4 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_one_icon4 | img_url: '60x'}}" alt="{{ block.settings.content_one_icon4.alt }}">
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="feature-row aos-init aos-animate">
+
+                <!-- Second content-->
+                <div class="feature-row__item feature-row__text feature-row__text--right larger-text" style="padding: 40px;display: flex;align-items: center;">
+                  <div class="materials-content-wrapper">
+                    {% if block.settings.content_two_heading != blank %}
+                      <h2 class="h3">{{ block.settings.content_two_heading | escape }}</h2>
+                    {% endif %}
+                    {% if block.settings.content_two_desc != blank %}
+                      <div class="rte featured-row__subtext" id="">{{block.settings.content_two_desc}}</div>
+                    {% endif %}
+                    {% if block.settings.content_two_icons %}
+                      <div class="matsection-content-icons-wrapper">
+                        {% if block.settings.content_two_icon1 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_two_icon1 | img_url: '60x'}}" alt="{{ block.settings.content_two_icon1.alt }}">
+                        {% endif %}
+                        {% if block.settings.content_two_icon2 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_two_icon2 | img_url: '60x'}}" alt="{{ block.settings.content_two_icon2.alt }}">
+                        {% endif %}
+                        {% if block.settings.content_two_icon3 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_two_icon3 | img_url: '60x'}}" alt="{{ block.settings.content_two_icon3.alt }}">
+                        {% endif %}
+                        {% if block.settings.content_two_icon4 != blank %}
+                          <img class="logo-bar__image lazyload" src="{{block.settings.content_two_icon4 | img_url: '60x'}}" alt="{{ block.settings.content_two_icon4.alt }}">
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <div class="feature-row__item">
+                  <div style="margin: 0 auto; max-width: {{ block.settings.image_width }}px;">
+                    {% if block.settings.content_two_img != blank %}
+                      <div class="image-wrap">
+                        {%- assign c2img = block.settings.content_two_img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                        <img class="feature-row__image lazyload"
+                            data-src="{{ c2img }}"
+                            data-widths="[360, 540, 720, 900, 1080]"
+                            data-aspectratio="{{ block.settings.content_two_img.aspect_ratio }}"
+                            data-sizes="auto"
+                            alt="{{ block.settings.content_two_img.alt }}">
+                      </div>
+                    {% else %}
+                      <div class="image-wrap">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+
+              </div>
+            </div>            
+
+          {% endfor %}
+        </div>
+       
+
+        {% if section.settings.show_btn %}
+          <div style="width: 100%;" class="text-center"><a href="{{section.settings.btn_link}}" style="min-width: 300px;" class="btn" {% if section.settings.btn_target %} target="_blank" {% endif %} >{{section.settings.btn_text}}</a></div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script type="text/javascript">
+  var contenttab = ""
+  function assignfirsttab() {
+    var tab = document.getElementsByClassName("matlinks");
+    if (tab.length > 0) {
+      contenttab = tab[0].getAttribute('data-tab');
+    }
+    //console.log(`first content tab-${contenttab}`);
+  }
+  assignfirsttab();
+  
+  var tabbedContent = function() {
+    //get all tab link elements
+    var tab = document.getElementsByClassName("matlinks");
+    //get all tab content elements
+    var tabContent = document.getElementsByClassName("singledesc");
+    //loop through each tab
+    for (var i = 0; i < tab.length; i++) {
+      //add click event listener to all tab links
+      tab[i].addEventListener('click', function() {
+        //each time tab clicked remove all current classes
+        //remove 'current' class from all tabs
+        for (var i = 0; i < tab.length; i++) {
+          tab[i].classList.remove('current');
+        };
+        //remove 'current' class from all tab content
+        for (var i = 0; i < tabContent.length; i++) {
+          tabContent[i].classList.remove('current');
+        };
+        //add current class back to the clicked tab
+        this.className += ' current';
+        //get data-tab attribute of what has been clicked
+        var matchingTab = this.getAttribute('data-tab');
+        contenttab = matchingTab;
+        //add current class to the tabContent element thats id matches the data-tab of the clicked tab
+        document.getElementById(matchingTab).className += ' current';
+        console.log("Matching tab",matchingTab)
+        //resetAllLogoLists();
+        const currenttabb = "."+matchingTab;
+        console.log(currenttabb);
+        //var currentlogolist = document.querySelector(currenttabb);
+        //console.log(currentlogolist);
+        //currentlogolist.classList.add("activellist");
+      }, false);
+    }
+  }
+  tabbedContent();
+
+  function resetAllLogoLists() {
+    const logolists = document.querySelectorAll(".c_logo_list")
+    console.log("Logolists length:", logolists.length)
+    logolists.forEach(logolist => {
+      logolist.classList.remove('activellist')
+    })
+  }
+
+  function changeHeading(text){
+    var display = document.querySelector(`.${contenttab.trim()} .entryheading`);
+    display.innerHTML = "";
+    display.innerHTML = text;
+  }
+
+  function changeText(text){
+    var display = document.querySelector(`.${contenttab.trim()} .entrytext`);
+    display.innerHTML = "";
+    display.innerHTML = text;
+  }
+
+  function assignCurrentTabs() {
+    const firstmatlink = document.querySelector(".matlinks");
+    const firstsingledesc = document.querySelector(".singledesc");
+    //const firstlogolist = document.querySelector(".c_logo_list");
+
+    if (firstmatlink) {
+      firstmatlink.classList.add('current');
+      firstsingledesc.classList.add('current');
+      //firstlogolist.classList.add("activellist");
+    }
+
+    
+  }
+
+  assignCurrentTabs();
+
+
+</script>
+
+
+{% schema %}
+  {
+    "name": "CS Materials Section",
+    "class": "custom-section",
+    "max_blocks": 7,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Material Section Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_heading",
+        "label": "Section Heading",
+        "default": "Section Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "section_subheading",
+        "label": "Section Subheading",
+        "default": "<p>Section Subheading</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_btn",
+        "label": "Enable button",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button Text",
+        "default": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "btn_target",
+        "label": "Open in new tab?",
+        "default": false
+      }
+    ],
+    "blocks": [
+     {
+      "type": "material",
+      "name": "Material",
+      "settings": [
+        {
+          "type": "text",
+          "id": "material",
+          "label": "Material name",
+          "default": "Material name"
+        },
+        {
+          "type": "text",
+          "id": "material_handle",
+          "label": "Material handle",
+          "info": "Needed for material display and function properly. Use material name and if there are spaces name, replace space with - or _ or remove space e.g: material_name, material-name, materialname",
+          "placeholder": "REQUIRED!"
+        },
+        {
+          "type": "header",
+          "content": "Material Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_one_img",
+          "label": "Content one image - Select image"
+        },
+        {
+          "type": "text",
+          "id": "content_one_heading",
+          "label": "Content One Heading",
+          "default": "Content One Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content_one_desc",
+          "label": "Content One Description",
+          "default": "<p>We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "content_one_icons",
+          "label": "Show icons?",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "content_one_icon1",
+          "label": "Icon one"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_one_icon2",
+          "label": "Icon two"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_one_icon3",
+          "label": "Icon three"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_one_icon4",
+          "label": "Icon four"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_two_img",
+          "label": "Content two image - Select image"
+        },
+        {
+          "type": "text",
+          "id": "content_two_heading",
+          "label": "Content Two Heading",
+          "default": "Content Two Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content_two_desc",
+          "label": "Content Two Description",
+          "default": "<p>We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "content_two_icons",
+          "label": "Show icons?",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "content_two_icon1",
+          "label": "Icon one"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_two_icon2",
+          "label": "Icon two"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_two_icon3",
+          "label": "Icon three"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_two_icon4",
+          "label": "Icon four"
+        }
+      ]
+
+     }
+    ],
+   "presets": [
+     {
+       "category": "Custom Sections",
+       "name":"CS Materials Section",
+       "blocks": [
+          {
+           "type": "material"
+          },
+          {
+           "type": "material"
+          },
+          {
+           "type": "material"
+          },
+          {
+           "type": "material"
+          },
+          {
+           "type": "material"
+          }
+       ]
+     }
+   ]
+  }
+  
+{% endschema %}

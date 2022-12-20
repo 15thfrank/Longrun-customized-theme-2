@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "cs-json-page-content"
+    },
+    "header": {
+      "type": "custom-impact-page-hero-section"
+    }
+  },
+  "order": [
+    "main",
+    "header"
+  ]
+}

@@ -1,0 +1,85 @@
+{%- assign sectionId = section.id -%}
+{% if product %}
+  {%- assign sectionID = section.id | append: product.id -%}
+{% endif %}
+
+<div class="index-section">
+  <div class="page-width">
+
+    <div class="grid">
+      <div class="grid__item{% if section.settings.narrow_column %} medium-up--three-quarters medium-up--push-one-eighth{% endif %}">
+        {% if section.settings.title != blank %}
+          <div class="section-header">
+            <h2 class="section-header__title text-center">
+              {{ section.settings.title }}
+            </h2>
+          </div>
+        {% endif %}
+
+        <div class="form-vertical">
+          {% form 'contact' %}
+
+            {% if form.posted_successfully? %}
+              <p class="note note--success">
+                {{ 'contact.form.post_success' | t }}
+              </p>
+            {% endif %}
+
+            {{ form.errors | default_errors }}
+
+            <div class="grid grid--small">
+              <div class="grid__item medium-up--one-half">
+                <label for="ContactFormName-{{ sectionID }}">{{ 'contact.form.name' | t }}</label>
+                <input type="text" id="ContactFormName-{{ sectionID }}" class="input-full" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+              </div>
+
+              <div class="grid__item medium-up--one-half">
+                <label for="ContactFormEmail-{{ sectionID }}">{{ 'contact.form.email' | t }}</label>
+                <input type="email" id="ContactFormEmail-{{ sectionID }}" class="input-full" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+              </div>
+            </div>
+
+            {% if section.settings.show_phone %}
+              <label for="ContactFormPhone-{{ sectionID }}">{{ 'contact.form.phone' | t }}</label>
+              <input type="tel" id="ContactFormPhone-{{ sectionID }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            {% endif %}
+
+            <label for="ContactFormMessage-{{ sectionID }}">{{ 'contact.form.message' | t }}</label>
+            <textarea rows="5" id="ContactFormMessage-{{ sectionID }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+            <button type="submit" class="btn">
+              {{ 'contact.form.send' | t }}
+            </button>
+
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "CS Contact Form",
+  "class": "custom-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone number"
+    }
+  ],
+ "presets": [
+   {
+     "category": "Custom Sections",
+     "name":"CS Contact Form"
+   }
+ ]
+}
+{% endschema %}

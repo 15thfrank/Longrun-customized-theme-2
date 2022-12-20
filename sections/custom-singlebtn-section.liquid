@@ -1,0 +1,70 @@
+<style>
+    .btn.btn--large {
+        padding: 15px 20px;
+        font-size: .9em;
+    }
+</style>
+
+<div class="index-section ">
+    <div class="page-width">
+      <div class="grid text-center">
+        <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
+            <div class="rte">
+              <div class="enlarge-text">
+                  <a class="btn{% if block.settings.large_button == true %} btn--large{% endif %}" href="{{block.settings.button_url}}" {% if block.settings.btn_nw == true %}target="_blank"{% endif %} style="width: {{block.settings.button_width}}%;">{{block.settings.button_text}}</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% schema %}
+  {
+    "class": "custom-section",
+    "name": "CS Single Button",
+    "settings": [
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "btn_nw",
+        "label": "Open in new tab?",
+        "default": false,
+        "info": "Check if you would like to open link in new tab."
+      },
+      {
+        "type": "checkbox",
+        "id": "large_button",
+        "label": "Use large button?",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "button_width",
+        "label": "Button width",
+        "unit": "%",
+        "min": 30,
+        "max": 100,
+        "step": 5,
+        "default": 50
+      }
+    ],
+   "presets": [
+       {
+           "category": "Custom Sections",
+           "name":"CS Single Button"
+       }
+   ] 
+  }
+  {% endschema %}

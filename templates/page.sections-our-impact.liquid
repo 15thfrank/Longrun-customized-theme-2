@@ -1,0 +1,179 @@
+{% section 'sustainability-page-header' %}
+{% section 'sustainability-page-csection-1' %}
+{% section 'sustainability-page-csection-2' %}
+{% section 'sustainability-page-csection-3' %}
+{% section 'sustainability-page-csection-4' %}
+{% section 'sustainability-page-footer' %}
+
+<div class="back-to-top prevswitch" id="prevswitch">
+  <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/image003.png?v=1647461839" alt="" style="transform: rotate(35deg);height: 40px;margin-right: 10px;">
+  <span id="prevsswitchtext" style="float: right;" style="transform: rotate(270deg);"></span> 
+</div>
+<div class="back-to-top nextswitch" id="nextswitch">
+  <span id="nextswitchtext" style="float: left;"></span>
+  <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/image003.png?v=1647461839" alt="" height="35" style="transform: rotate(210deg);height: 40px;margin-left: 10px;">
+</div>
+
+<style>
+    .impactminipage {
+        display: none;
+        animation: fadeEffect 1s;
+    }
+    @keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+    .impactminipage.current {
+        display: inherit;
+    }
+    .impactlinks.current{
+        background: #fff !important;
+        border-color: #fff;
+        color: #4a7d71;
+    }
+    .impactlinks {margin: 10px !important;}
+    @media screen and (max-width: 600px) {
+        .impactlinks{display:block;}
+    }
+
+    .prevswitch{
+      float: left;
+      left:20px;
+    }
+    .nextswitch{
+      float: right;
+      right:20px;
+    }
+    .prevswitch, .nextswitch{
+      position:fixed;
+      z-index: 9;
+      top:45%;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.7em;
+      word-wrap: break-word;
+      max-width: 170px;
+      /*max-height: 70px; */
+      font-style: italic;
+      padding: 15px;
+      background: rgba(234, 234, 234, 0.5);;
+      border-radius: 7px;
+      color:#4a7d71;
+      transition: 0.7s easein;
+    }
+    .prevswitch i, .nextswitch i{
+      color:#4a7d71;
+    }
+    #nextswitchtext, #prevsswitchtext {padding-top:15px;}
+</style>
+
+<script type="text/javascript">
+  const  buttons = document.querySelectorAll(".impactlinks")
+  const  content = document.querySelectorAll(".impactminipage")
+  
+  function runSwitchText() {
+    var buttons = document.querySelectorAll(".impactlinks")
+    var lastindex = buttons.length - 1;
+    var btnindex = 0
+    buttons.forEach(button => {
+      if (button.classList.contains('current')){
+        if ((btnindex < lastindex) && (btnindex >= 1)){
+          document.getElementById("prevsswitchtext").innerText = buttons[btnindex-1].innerText;
+          document.getElementById("nextswitchtext").innerText = buttons[btnindex+1].innerText;
+        } else if (btnindex == lastindex){
+          document.getElementById("prevsswitchtext").innerText = buttons[btnindex-1].innerText;
+          document.getElementById("nextswitchtext").innerText = buttons[0].innerText;
+        } else if (btnindex == 0) {
+          document.getElementById("prevsswitchtext").innerText = buttons[lastindex].innerText;
+          document.getElementById("nextswitchtext").innerText = buttons[btnindex+1].innerText;
+        }
+
+      } else{
+        btnindex += 1
+      }
+      
+    });
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      removeCurrentClasses();
+      button.classList.add('current');
+      var attributtte = button.getAttribute('data-tab');
+      document.getElementById(attributtte).classList.add('current')
+    });
+  });
+
+  function removeCurrentClasses() {
+    buttons.forEach(button => {
+      button.classList.remove('current');
+    });
+    content.forEach(cont => {
+      cont.classList.remove('current');
+    });
+  };
+
+  function checkActiveIndex() {
+    var activeIndex = null;
+    var buttonsag = document.querySelectorAll(".impactlinks");
+    lenn = buttonsag.length
+    for (currentindex = 0; currentindex < lenn; currentindex++ ) {
+      if (buttonsag[currentindex].classList.contains('current')) {
+        activeIndex = currentindex;
+        break;
+      };
+    };
+    return activeIndex;
+  };
+
+
+  document.getElementById('prevswitch').addEventListener('click', function(){
+    var  bttns = document.querySelectorAll(".impactlinks");
+    var  cntnt = document.querySelectorAll(".impactminipage");
+    var cindex = checkActiveIndex();
+    if (cindex != 0) {
+      var previndex = cindex - 1;
+      removeCurrentClasses();
+      bttns[previndex].classList.add('current');
+      cntnt[previndex].classList.add('current');
+      cntnt[previndex].scrollIntoView();
+    };
+    if (cindex == 0) {
+      var previndex = bttns.length;
+      previndex = previndex - 1
+      removeCurrentClasses();
+      bttns[previndex].classList.add('current');
+      cntnt[previndex].classList.add('current');
+      cntnt[previndex].scrollIntoView();
+    };
+  });
+
+  document.getElementById('nextswitch').addEventListener('click', function(){
+    var  bttns = document.querySelectorAll(".impactlinks");
+    var  cntnt = document.querySelectorAll(".impactminipage");
+    var cindex = checkActiveIndex();
+    var arlen = bttns.length - 1;
+    if (cindex < arlen) {
+      var nextindex = cindex+1;
+      removeCurrentClasses();
+      bttns[nextindex].classList.add('current');
+      cntnt[nextindex].classList.add('current');
+      cntnt[nextindex].scrollIntoView();
+    };
+    if (cindex == arlen) {
+      var nextindex = 0;
+      removeCurrentClasses();
+      bttns[0].classList.add('current');
+      cntnt[0].classList.add('current');
+      cntnt[0].scrollIntoView();
+    };
+  });
+
+  window.addEventListener("load", (event) => {
+    runSwitchText();
+    //console.log(buttons[0].innerHTML);
+    //console.log(buttons[0].innerText);
+  });
+  document.addEventListener('click', runSwitchText)
+
+</script>

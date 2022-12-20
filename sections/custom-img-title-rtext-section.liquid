@@ -1,0 +1,112 @@
+<div class="index-section ">
+  <div class="page-width">
+    <div class="section-header" style="margin-bottom: 10px;">
+      <h2 class="section-header__title" style="margin-bottom: 0;text-align: {{block.settings.text-align}};">{{block.settings.title}}</h2>
+    </div>
+    <div class="grid text-center">
+      <div class="grid__item">
+        
+        
+          <div class="rte">
+              
+            <div class="enlarge-text">
+              {% if block.settings.img != blank %}
+                  {%- assign img_url = block.settings.img | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  <img class="cus-st-img lazyload"
+                      src="{{ img_url }}"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 540]"
+                      data-aspectratio="{{ block.settings.img.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ block.settings.img.alt }}">
+              {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+            <div {% if block.settings.enlarge-text == true %}class="enlarge-text"{% endif %} style="margin-top: 10px;">
+              <p style="text-align:{{block.settings.textalign}};">{{ block.settings.text }}</p>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "CS Img-Title-Richtxt",
+    "class": "custom-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+      {
+        "type": "select",
+        "id": "text-align",
+        "label": "Text alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "img",
+        "label": "Select image"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text"
+      },
+      {
+        "type": "select",
+        "id": "textalign",
+        "label": "Text alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enlarge_text",
+        "label": "Enlarge text?",
+        "default": false
+      }
+    ],
+   "presets": [
+       {
+           "category": "Custom Sections",
+           "name":"CS Img-Title-Richtxt"
+       }
+   ]
+  }
+{% endschema %}

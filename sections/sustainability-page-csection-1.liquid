@@ -1,0 +1,1039 @@
+<div class="impactminipage current" id="{{section.settings.sectionid}}">
+    {% include 'impact-page-template-blocks' %}
+  </div>
+  {% schema %}
+    {
+      "name": "B-Corp section",
+      "settings": [
+        {
+            "type": "text",
+            "id": "sectionname",
+            "label": "Section Name",
+            "default": "B-Corp"
+        },
+        {
+          "type": "text",
+          "id": "sectionid",
+          "label": "Section ID",
+          "default": "section-one",
+          "info": "Section ID must match relevant 'Section handle' from Header section settings."
+        }
+      ],
+      "blocks": [
+        {
+          "type": "contact-form",
+          "name": "Contact form",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title"
+            },
+            {
+              "type": "checkbox",
+              "id": "show_phone",
+              "label": "Show phone number"
+            },
+            {
+              "type": "checkbox",
+              "id": "narrow_column",
+              "label": "Narrow column",
+              "default": true
+            }
+          ]
+        },
+        {
+          "type": "custom-html",
+          "name": "Custom HTML",
+          "settings": [
+            {
+              "type": "checkbox",
+              "id": "full_width",
+              "label": "Full page width",
+              "default": false
+            },
+            {
+              "type": "checkbox",
+              "id": "space_around",
+              "label": "Add spacing above and below",
+              "default": true
+            },
+            {
+              "type": "textarea",
+              "id": "code",
+              "label": "HTML",
+              "default": "<h2>Custom HTML</h2><p>Use this advanced section to build your own layouts or to add custom HTML or scripts.</p>"
+            }
+          ]
+        },
+        
+  
+  
+  
+        {
+          "type": "interactive-section",
+          "name": "Interactive section",
+          "settings": [
+            {
+              "type": "color",
+              "id": "entry_list_bg",
+              "label": "Background color",
+              "default": "#fff"
+            },
+            {
+              "type": "color",
+              "id": "entry_list_textcolor",
+              "label": "Heading and description color",
+              "default": "#000"
+            },
+  
+            {
+              "type": "header",
+              "content": "Entry One",
+              "info": "Settings for entry one"
+            },
+            {
+              "type": "checkbox",
+              "id": "entry_one_show",
+              "label": "Show entry one?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "entry_one_heading",
+              "label": "Heading",
+              "default": "LongRun"
+            },
+            {
+              "type": "textarea",
+              "id": "entry_one_desc",
+              "label": "Description",
+              "default": "We are LongRun, a new Canadian shoe brand that puts the environment first."
+            },
+            {
+              "type": "url",
+              "id": "entry_one_link",
+              "label": "URL"
+            },
+            {
+              "type": "image_picker",
+              "id": "entry_one_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Entry Two",
+              "info": "Settings for entry two"
+            },
+            {
+              "type": "checkbox",
+              "id": "entry_two_show",
+              "label": "Show entry two?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "entry_two_heading",
+              "label": "Heading",
+              "default": "LongRun"
+            },
+            {
+              "type": "textarea",
+              "id": "entry_two_desc",
+              "label": "Description",
+              "default": "We are LongRun, a new Canadian shoe brand that puts the environment first."
+            },
+            {
+              "type": "url",
+              "id": "entry_two_link",
+              "label": "URL"
+            },
+            {
+              "type": "image_picker",
+              "id": "entry_two_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Entry Three",
+              "info": "Settings for entry three"
+            },
+            {
+              "type": "checkbox",
+              "id": "entry_three_show",
+              "label": "Show entry three?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "entry_three_heading",
+              "label": "Heading",
+              "default": "LongRun"
+            },
+            {
+              "type": "textarea",
+              "id": "entry_three_desc",
+              "label": "Description",
+              "default": "We are LongRun, a new Canadian shoe brand that puts the environment first."
+            },
+            {
+              "type": "url",
+              "id": "entry_three_link",
+              "label": "URL"
+            },
+            {
+              "type": "image_picker",
+              "id": "entry_three_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Entry Four",
+              "info": "Settings for entry four"
+            },
+            {
+              "type": "checkbox",
+              "id": "entry_four_show",
+              "label": "Show entry four?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "entry_four_heading",
+              "label": "Heading",
+              "default": "LongRun"
+            },
+            {
+              "type": "textarea",
+              "id": "entry_four_desc",
+              "label": "Description",
+              "default": "We are LongRun, a new Canadian shoe brand that puts the environment first."
+            },
+            {
+              "type": "url",
+              "id": "entry_four_link",
+              "label": "URL"
+            },
+            {
+              "type": "image_picker",
+              "id": "entry_four_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Button settings"
+            },
+            {
+              "type": "checkbox",
+              "id": "entry_button_show",
+              "label": "Display button?",
+              "default": false,
+              "info": "Check to display button."
+            },
+            {
+              "type": "url",
+              "id": "entry_button_link",
+              "label": "URL"
+            },
+            {
+              "type": "text",
+              "id": "entry_button_text",
+              "label": "Button text",
+              "default": "Button Text"
+            },
+            {
+              "type": "checkbox",
+              "id": "entry_button_nt",
+              "label": "New tab?",
+              "default": true,
+              "info": "Check to open button link in new tab."
+            }
+  
+          ]
+  
+        },
+        
+        {
+          "type": "custom-block-materials",
+          "name": "Materials Block",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title"
+            },
+            {
+              "type": "header",
+              "content": "Material One"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_one_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_one",
+              "label": "Name of Material one",
+              "default": "Material One"
+            },
+            {
+              "type": "textarea",
+              "id": "material_one_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_one_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Material Two"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_two_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_two",
+              "label": "Name of Material two",
+              "default": "Material Two"
+            },
+            {
+              "type": "textarea",
+              "id": "material_two_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_two_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Material Three"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_three_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_three",
+              "label": "Name of Material three",
+              "default": "Material Three"
+            },
+            {
+              "type": "textarea",
+              "id": "material_three_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_three_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Material Four"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_four_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_four",
+              "label": "Name of Material Four",
+              "default": "Material Four"
+            },
+            {
+              "type": "textarea",
+              "id": "material_four_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_four_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Material Five"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_five_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_five",
+              "label": "Name of Material Five",
+              "default": "Material Five"
+            },
+            {
+              "type": "textarea",
+              "id": "material_five_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_five_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Material Six"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_six_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_six",
+              "label": "Name of Material Six",
+              "default": "Material Six"
+            },
+            {
+              "type": "textarea",
+              "id": "material_six_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_six_img",
+              "label": "Select image"
+            },
+  
+            {
+              "type": "header",
+              "content": "Material Seven"
+            },
+            {
+              "type": "checkbox",
+              "id": "material_seven_show",
+              "label": "Display material?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "material_seven",
+              "label": "Name of Material Seven",
+              "default": "Material Seven"
+            },
+            {
+              "type": "textarea",
+              "id": "material_seven_desc",
+              "label": "Description",
+              "default": "We set out on a mission to find the best materials for your feet and the planet. That means natural plant-based materials that grow and renew quickly, that grow without chemicals or irrigation and are made into fabrics and materials in an eco friendly way."
+            },
+            {
+              "type": "image_picker",
+              "id": "material_seven_img",
+              "label": "Select image"
+            }
+          ]
+        },
+  
+  
+  
+        {
+          "type": "custom-block-buttons",
+          "name": "Buttons Block",
+          "settings": [
+            {
+              "type": "header",
+              "content": "Button One"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_block_btn1_show",
+              "label": "Display button?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "button_one_text",
+              "label": "Button text",
+              "default": "Button Text"
+            },
+            {
+              "type": "url",
+              "id": "button_one_url",
+              "label": "Link"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_one_nw",
+              "label": "Open in new tab?",
+              "default": false,
+              "info": "Check if you would like to open link in new tab."
+            },
+  
+            {
+              "type": "header",
+              "content": "Button Two"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_block_btn2_show",
+              "label": "Display button?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "button_two_text",
+              "label": "Button text",
+              "default": "Button Text"
+            },
+            {
+              "type": "url",
+              "id": "button_two_url",
+              "label": "Link"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_two_nw",
+              "label": "Open in new tab?",
+              "default": false,
+              "info": "Check if you would like to open link in new tab."
+            },
+  
+            {
+              "type": "header",
+              "content": "Button Three"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_block_btn3_show",
+              "label": "Display button?",
+              "default": true
+            },
+            {
+              "type": "text",
+              "id": "button_three_text",
+              "label": "Button text",
+              "default": "Button Text"
+            },
+            {
+              "type": "url",
+              "id": "button_three_url",
+              "label": "Link"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_three_nw",
+              "label": "Open in new tab?",
+              "default": false,
+              "info": "Check if you would like to open link in new tab."
+            }
+          ]
+        },
+  
+        
+        {
+          "name": "Standalone Image or Gif",
+          "type": "custom-block-st-img",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "st_img",
+              "label": "Select image"
+            }
+          ]
+        },
+  
+  
+  
+        {
+          "type": "custom-block-bg-ov-img",
+          "name": "Text with bg and overlay",
+          "settings": [
+            {
+              "type": "text",
+              "id": "subtitle",
+              "label": "Subtitle",
+              "default": "Impressive"
+            },
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "Large image with text box"
+            },
+            {
+              "type": "richtext",
+              "id": "text",
+              "label": "Text",
+              "default": "<p>Pair large text with a full-width image to draw attention to an important detail of your brand or product line.</p>"
+            },
+            {
+              "type": "text",
+              "id": "button_label",
+              "label": "Button label"
+            },
+            {
+              "type": "url",
+              "id": "button_link",
+              "label": "Button link"
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "select",
+              "id": "alignment",
+              "label": "Image focal point",
+              "info": "Used to keep the subject of your photo in view.",
+              "default": "center",
+              "options": [
+                {
+                  "value": "top left",
+                  "label": "Top left"
+                },
+                {
+                  "value": "top",
+                  "label": "Top"
+                },
+                {
+                  "value": "top right",
+                  "label": "Top right"
+                },
+                {
+                  "value": "center left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Middle"
+                },
+                {
+                  "value": "center right",
+                  "label": "Right"
+                },
+                {
+                  "value": "bottom left",
+                  "label": "Bottom left"
+                },
+                {
+                  "value": "bottom",
+                  "label": "Bottom"
+                },
+                {
+                  "value": "bottom right",
+                  "label": "Bottom right"
+                }
+              ]
+            },
+            {
+              "type": "color",
+              "id": "overlay",
+              "label": "Overlay color",
+              "default": "#fff"
+            },
+            {
+              "type": "color",
+              "id": "title_color",
+              "label": "Title color",
+              "default": "#4A7D71"
+            },
+            {
+              "type": "color",
+              "id": "subtext_color",
+              "label": "Subtitle and Paragraph color",
+              "default": "#000"
+            },
+            {
+              "type": "range",
+              "id": "height",
+              "label": "Section height",
+              "default": 450,
+              "min": 450,
+              "max": 750,
+              "step": 100,
+              "unit": "px"
+            },
+            {
+              "type": "checkbox",
+              "id": "parallax",
+              "label": "Enable parallax",
+              "default": true
+            }
+          ]
+        },
+  
+  
+        {
+          "type": "custom-block-single-btn",
+          "name": "Single Button",
+          "settings": [
+            {
+              "type": "text",
+              "id": "button_text",
+              "label": "Button text",
+              "default": "Button Text"
+            },
+            {
+              "type": "url",
+              "id": "button_url",
+              "label": "Link"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_nw",
+              "label": "Open in new tab?",
+              "default": false,
+              "info": "Check if you would like to open link in new tab."
+            },
+            {
+              "type": "checkbox",
+              "id": "large_button",
+              "label": "Use large button?",
+              "default": false
+            },
+            {
+              "type": "range",
+              "id": "button_width",
+              "label": "Button width",
+              "unit": "%",
+              "min": 30,
+              "max": 100,
+              "step": 5,
+              "default": 50
+            }
+          ]
+        },
+  
+        {
+          "type": "rich-text-button",
+          "name": "Rich text w/ button",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "Rich text block"
+            },
+            {
+              "type": "richtext",
+              "id": "text",
+              "label": "Text",
+              "default": "<p>Use this section for any descriptive text you need to fill out your pages or to add introductory headings between other blocks.</p>"
+            },
+            {
+              "type": "select",
+              "id": "align_text",
+              "label": "Text alignment",
+              "default": "left",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Centered"
+                }
+              ]
+            },
+            {
+              "type": "checkbox",
+              "id": "narrow_column",
+              "label": "Narrow column",
+              "default": true
+            },
+            {
+              "type": "checkbox",
+              "id": "enlarge_text",
+              "label": "Enlarge text"
+            },
+            {
+              "type": "text",
+              "id": "button_text",
+              "label": "Button text",
+              "default": "Button Text"
+            },
+            {
+              "type": "url",
+              "id": "button_url",
+              "label": "Link"
+            },
+            {
+              "type": "checkbox",
+              "id": "btn_nw",
+              "label": "Open in new tab?",
+              "default": false,
+              "info": "Check if you would like to open link in new tab."
+            },
+            {
+              "type": "checkbox",
+              "id": "large_button",
+              "label": "Use large button?",
+              "default": false
+            }
+          ]
+        },
+  
+  
+  
+        {
+          "name": "Image w/ title",
+          "type": "custom-block-img-title",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "Title"
+            },
+            {
+              "type": "select",
+              "id": "text-align",
+              "label": "Text alignment",
+              "default": "left",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ]
+            },
+            {
+              "type": "image_picker",
+              "id": "img",
+              "label": "Select image"
+            }
+          ]
+        },
+  
+  
+        {
+          "name": "Image w/ text",
+          "type": "custom-block-img-text",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "img",
+              "label": "Select image"
+            },
+            {
+              "type": "textarea",
+              "id": "text",
+              "label": "Text",
+              "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lobortis aliquet magna ac imperdiet. Morbi gravida elit nisl, eu volutpat felis iaculis nec. Ut eget imperdiet orci. Cras eget sem nec mi consequat pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit finibus egestas."
+            },
+            {
+              "type": "select",
+              "id": "textalign",
+              "label": "Text Align",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ],
+              "default": "center"
+            },
+            {
+              "type": "checkbox",
+              "id": "largetext",
+              "label": "Enlarge text?",
+              "default": true,
+              "info": "Check to make text larger."
+            }
+          ]
+        },
+        {
+          "type": "title-text-image",
+          "name": "Image with text and title",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "Image with text"
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "range",
+              "id": "image_width",
+              "label": "Image width",
+              "default": 500,
+              "min": 100,
+              "max": 500,
+              "step": 10,
+              "unit": "px"
+            },
+            {
+              "type": "text",
+              "id": "subtitle",
+              "label": "Subtitle",
+              "default": "Improved"
+            },
+            {
+              "type": "richtext",
+              "id": "text",
+              "label": "Text",
+              "default": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.</p>"
+            },
+            {
+              "type": "text",
+              "id": "button_label",
+              "label": "Button label",
+              "default": "Optional button"
+            },
+            {
+              "type": "url",
+              "id": "button_link",
+              "label": "Button link"
+            },
+            {
+              "type": "checkbox",
+              "id": "blank",
+              "label": "Open in new tab?",
+              "default": true
+            },
+            {
+              "type": "select",
+              "id": "layout",
+              "label": "Layout",
+              "default": "left",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Image on left"
+                },
+                {
+                  "value": "right",
+                  "label": "Image on right"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Img w/ title & rich text",
+          "type": "cust-blk-img-tit-rtext",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "Title"
+            },
+            {
+              "type": "select",
+              "id": "text-align",
+              "label": "Text alignment",
+              "default": "left",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ]
+            },
+            {
+              "type": "image_picker",
+              "id": "img",
+              "label": "Select image"
+            },
+            {
+              "type": "textarea",
+              "id": "text",
+              "label": "Text"
+            },
+            {
+              "type": "select",
+              "id": "textalign",
+              "label": "Text alignment",
+              "default": "left",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ]
+            },
+            {
+              "type": "checkbox",
+              "id": "enlarge_text",
+              "label": "Enlarge text?",
+              "default": false
+            }
+          ]
+        }
+  
+  
+      ]
+  
+    }
+  {% endschema %}
+  

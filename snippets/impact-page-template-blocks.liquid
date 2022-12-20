@@ -1,0 +1,26 @@
+<div class="page-blocks">
+  {% for block in section.blocks %}
+    <div {{ block.shopify_attributes }}>
+      
+      {% case block.type %}
+        {% when 'impact-page-hero' %}
+          {% include 'custom-snippet-impact-page-hero' %}
+
+        {% when 'image-with-text' %}
+          {% include 'snippet' %}
+        
+        {% when 'image-with-text-custom' %}
+          {% include 'snippet' %}
+        
+        {% when 'text-columns' %}
+          {% include 'snippet' %}
+
+        {% when 'text-columns-custom' %}
+          {% include 'snippet' %}
+        
+        
+      
+      {% endcase %}
+    </div>
+  {% endfor %}
+</div>

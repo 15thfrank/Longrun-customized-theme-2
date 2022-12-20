@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": {
+      "type": "cs-json-page-content"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
