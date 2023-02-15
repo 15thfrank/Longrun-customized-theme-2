@@ -20,7 +20,7 @@
   </style>
 {% endif %}
 <div class="site-header{% if request.page_type == 'index' %} site-header--homepage{% if section.settings.enable_transparent %} site-header--transparent{% endif %} {% elsif template.suffix contains "custom" %} site-header--transparent {% endif %} site-header--fixed-fixed" data-section-id="{{ section.id }}" data-section-type="header-section" data-drawer-push {% if section.settings.enable_transparent and request.page_type == 'index' %} data-transparent-header="true" {% endif %}>
-  <header class="site-header__wrapper" role="banner">
+  <header class="site-header__wrapper {% if template.name == 'product' or template.name == 'search' or template.name == 'search' or template.name == 'collection' or template.name == 'list-collection' or page.handle == "help-center" or section.settings.enable_transparent == false  %} ch___headerFixed{% endif %}" role="banner">
     {% if section.settings.show_announcement %}
       {% if section.settings.home_page_only == false or request.page_type == 'index' %}
         <style>
@@ -70,6 +70,10 @@
     {% endif %}
 
     <div class="site-header-sections page-width nullHeader" id="ch-desktop">
+      <input type="checkbox" id="ch__mobilemenu">
+      <label for="ch__mobilemenu" class="ch__mobilemenutoggle" style="padding-top: 1.5rem;">
+        <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/menu.png?v=1676473415" alt="mobile menu">
+      </label>
       <div class="site-header__section ch-desktoplogo">
         {% if request.page_type == 'index' %}
           <h1 class="site-header__logo-wrapper h4" itemscope itemtype="http://schema.org/Organization">
@@ -157,169 +161,16 @@
         </ul>
       </div>
       <div class="site-header__section ch-desktopicons">
-        <a href="{{ routes.cart_url }}" class="btn btn--clear btn--square btn--hover-scale site-header__cart ajax-cart__toggle" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <a href="{{ routes.account_url}}" class="btn btn--clear btn--square btn--hover-scale" aria-expanded="false">
+          <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/account.png?v=1676466744" alt="account">
+        </a>
+        <a href="{{ routes.search_url }}" class="btn btn--clear btn--square btn--hover-scale" aria-expanded="false">
+          <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/search.png?v=1676466743" alt="search">
         </a>
         <a href="{{ routes.cart_url }}" class="btn btn--clear btn--square btn--hover-scale site-header__cart ajax-cart__toggle" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <a href="{{ routes.cart_url }}" class="btn btn--clear btn--square btn--hover-scale site-header__cart ajax-cart__toggle" aria-expanded="false">
-          {%- assign icon = 'icon-header-' | append: section.settings.icon %}
-          {% include icon %}
-          <span class="icon__fallback-text">{{ 'general.header.view_cart' | t }}</span>
-          <span class="site-header__cart-bubble{% if cart.item_count > 0 %} site-header__cart-bubble--visible{% endif %}"></span>
-        </a>
-      </div>
-    </div>
-
-    <div class="site-header-sections page-width" id="ch-mobile">
-      <nav class="site-header__section site-header__section--button"
-        data-site-navigation role="navigation"
-      >
-        <button class="site-header__navigation btn btn--clear btn--square"
-          aria-expanded="false"
-          data-navigation-button
-        >
-          <span class="burger-icon burger-icon--top"></span>
-          <span class="burger-icon burger-icon--mid"></span>
-          <span class="burger-icon burger-icon--bottom"></span>
-          <span class="icon__fallback-text">{{ 'general.header.menu' | t }}</span>
-        </button>
-        <div class="navigation supports-no-js critical-hide" data-section-id="{{ section.id }}" data-section-type="navigation" aria-hidden=true>
-          <div class="navigation__container">
-            <ul class="navigation__links">
-              {% for link in linklists[section.settings.primary_navigation].links%}
-                {% assign child_list_handle = link.title | handleize %}
-                {% if link.links != blank %}
-                  <li class="navigation__link navigation__has-sublinks navigation__has-sublinks--collapsed navigation__entrance-animation">
-                    <button class="navigation__expand-sublinks" aria-expanded="{% if link.active %}true{% else %}false{% endif %}">
-                      <span aria-hidden="true">{{ link.title }}</span>
-                      <span class="visually-hidden">{{ 'general.navigation.toggle_sublinks' | t: link_title: link.title }}</span>
-                      {% include 'icon-arrow-down' %}
-                    </button>
-                    <div class="navigation__sublinks-container">
-                      <ul class="navigation__sublinks">
-                        {% for childlink in link.links %}
-                          <li class="navigation__sublink{% if childlink.links != blank %} navigation__has-sublinks navigation__has-sublinks--collapsed{% endif %}">
-                            {% if childlink.links != blank %}
-                              <button class="navigation__expand-sublinks navigation__expand-sublinks--third-level" aria-expanded="{% if link.active %}true{% else %}false{% endif %}">
-                                <span aria-hidden="true">{{ childlink.title }}</span>
-                                <span class="visually-hidden">{{ 'general.navigation.toggle_sublinks' | t: link_title: childlink.title }}</span>
-                                {% include 'icon-arrow-down' %}
-                              </button>
-                              <div class="navigation__sublinks-container">
-                                <ul class="navigation__sublinks navigation__sublinks--third-level">
-                                  {% for grandchildlink in childlink.links %}
-                                    <li class="navigation__sublink--third-level">
-                                      <a href="{{ grandchildlink.url }}"{% if grandchildlink.active %} aria-current="page"{% endif %}>{{ grandchildlink.title | escape }}</a>
-                                    </li>
-                                  {% endfor %}
-                                </ul>
-                              </div>
-                            {% else %}
-                              <a href="{{ childlink.url }}"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title | escape }}</a>
-                            {% endif %}
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    </div>
-                  </li>
-                {% else %}
-                  <li class="navigation__link navigation__entrance-animation{% if link.active %} navigation__link--active{% endif %}">
-                    <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
-                  </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-
-            <ul class="navigation__links">
-              {% if shop.customer_accounts_enabled %}
-                {% if customer %}
-                  <li class="navigation__link navigation__link--secondary navigation__entrance-animation">
-                    {% if customer.first_name != blank %}
-                      {% capture first_name %}{{ customer.first_name }}{% endcapture %}
-                      <a href="{{ routes.account_url }}">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
-                    {% else %}
-                      <a href="{{ routes.account_url }}">{{ 'layout.customer.account' | t }}</a>
-                    {% endif %}
-                  </li>
-                  <li class="navigation__link navigation__link--secondary navigation__entrance-animation">
-                    <a href="{{ routes.account_logout_url }}">{{ 'layout.customer.log_out' | t }}</a>
-                  </li>
-                {% else %}
-                  <li class="navigation__link navigation__link--secondary navigation__entrance-animation">
-                    <a href="{{ routes.account_login_url }}">{{ 'layout.customer.log_in' | t }}</a>
-                  </li>
-                  <li class="navigation__link navigation__link--secondary navigation__entrance-animation">
-                    <a href="{{ routes.account_register_url }}">{{ 'layout.customer.create_account' | t }}</a>
-                  </li>
-                {% endif %}
-              {% endif %}
-              {% for link in linklists[section.settings.secondary_navigation].links %}
-                <li class="navigation__link navigation__link--secondary navigation__entrance-animation{% if link.active %} navigation__link--active{% endif %}">
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-
-            {% if section.settings.show_social_icons %}
-              <div class="navigation__social-sharing navigation__entrance-animation">
-                {% include 'social-links', disableTab: true, largeIcons: true %}
-              </div>
-            {% endif %}
-
-            {% include 'search-bar', animate: true, disableTab: true %}
-          </div>
-        </div>
-      </nav>
-      <div class="site-header__section site-header__section--title">
-        {% comment %}
-        Use the uploaded logo from theme settings if enabled.
-        Site name gets precedence with `h1` tag on homepage, div on other pages.
-        {% endcomment %}
-        {% if request.page_type == 'index' %}
-          <h1 class="site-header__logo-wrapper h4" itemscope itemtype="http://schema.org/Organization">
-        {% else %}
-          <div class="site-header__logo-wrapper h4" itemscope itemtype="http://schema.org/Organization">
-        {% endif %}
-
-        <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo">
-          {%- capture image_size %}x{{ section.settings.logo_max_height }}{% endcapture -%}
-
-          {% if section.settings.logo %}
-            <style>
-              .site-header__logo-image {
-                height: {{ section.settings.logo_max_height | append: 'px' }};
-              }
-            </style>
-
-            <img class="site-header__logo-image" src="{{ section.settings.logo | img_url: image_size }}" srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x" alt="{{ section.settings.logo.alt | default: shop.name }}" itemprop="logo">
-
-            {% if request.page_type == 'index' and section.settings.enable_transparent %}
-              {% if section.settings.transparent_logo == blank %}
-                {%- assign transparent_logo = section.settings.logo -%}
-              {% else %}
-                {%- assign transparent_logo = section.settings.transparent_logo -%}
-              {% endif %}
-
-              <img class="site-header__logo-image site-header__logo-image--transparent" src="{{ transparent_logo | img_url: image_size }}" srcset="{{ transparent_logo | img_url: image_size }} 1x, {{ transparent_logo | img_url: image_size, scale: 2 }} 2x" alt="{{ section.settings.logo.alt | default: shop.name }}"
-                      itemprop="logo">
-            {% endif %}
-          {% else %}
-            {{ shop.name }}
-          {% endif %}
-        </a>
-
-        {% if request.page_type == 'index' %}
-          </h1>
-        {% else %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="site-header__section site-header__section--button">
-        <a href="{{ routes.cart_url }}" class="btn btn--clear btn--square btn--hover-scale site-header__cart ajax-cart__toggle" aria-expanded="false">
-          {%- assign icon = 'icon-header-' | append: section.settings.icon %}
-          {% include icon %}
+          {% comment %} {%- assign icon = 'icon-header-' | append: section.settings.icon %}
+          {% include icon %} {% endcomment %}
+          <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/cart.png?v=1676466743" alt="cart">
           <span class="icon__fallback-text">{{ 'general.header.view_cart' | t }}</span>
           <span class="site-header__cart-bubble{% if cart.item_count > 0 %} site-header__cart-bubble--visible{% endif %}"></span>
         </a>
