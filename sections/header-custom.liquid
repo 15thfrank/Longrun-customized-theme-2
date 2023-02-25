@@ -20,7 +20,7 @@
   </style>
 {% endif %}
 <div class="site-header{% if request.page_type == 'index' %} site-header--homepage{% if section.settings.enable_transparent %} site-header--transparent{% endif %} {% elsif template.suffix contains "custom" %} site-header--transparent {% endif %} site-header--fixed-fixed" data-section-id="{{ section.id }}" data-section-type="header-section" data-drawer-push {% if section.settings.enable_transparent and request.page_type == 'index' %} data-transparent-header="true" {% endif %}>
-  <header class="site-header__wrapper {% if template.name == 'product' or template.name == 'search' or template.name == 'search' or template.name == 'collection' or template.name == 'list-collection' or page.handle == "help-center" or section.settings.enable_transparent == false  %} ch___headerFixed{% endif %}" role="banner">
+  <header class="site-header__wrapper {% if template.name == 'product' or template.name == 'search' or template.name == 'collection' or template.name == 'list-collection' or template.name == 'cart' or page.url contains "app/help-center" or page.handle contains 'contact' or template.name == "login" or template.name == "account" or template.name == "activate_account" or template.name == "addresses" or template.name == "order" or template.name == "register" or template.name == "reset_password" or template.name == "404" or template.name == "article" or template.name == "blog" or template.name == "cart" or section.settings.enable_transparent == false  %} ch___headerFixed{% endif %}" role="banner">
     {% if section.settings.show_announcement %}
       {% if section.settings.home_page_only == false or request.page_type == 'index' %}
         <style>
@@ -161,10 +161,10 @@
         </ul>
       </div>
       <div class="site-header__section ch-desktopicons">
-        <a href="{{ routes.account_url}}" class="btn btn--clear btn--square btn--hover-scale" aria-expanded="false">
+        <a href="{{ routes.account_url }}" class="btn btn--clear btn--square btn--hover-scale site-header__cart" aria-expanded="false">
           <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/account.png?v=1676466744" alt="account">
         </a>
-        <a href="{{ routes.search_url }}" class="btn btn--clear btn--square btn--hover-scale" aria-expanded="false">
+        <a href="javascript:void(0)" id="ch_SearchBtn" class="btn btn--clear btn--square btn--hover-scale site-header__cart" aria-expanded="false">
           <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/search.png?v=1676466743" alt="search">
         </a>
         <a href="{{ routes.cart_url }}" class="btn btn--clear btn--square btn--hover-scale site-header__cart ajax-cart__toggle" aria-expanded="false">
@@ -172,7 +172,7 @@
           {% include icon %} {% endcomment %}
           <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/cart.png?v=1676466743" alt="cart">
           <span class="icon__fallback-text">{{ 'general.header.view_cart' | t }}</span>
-          <span class="site-header__cart-bubble{% if cart.item_count > 0 %} site-header__cart-bubble--visible{% endif %}"></span>
+          <span class="site-header__cart-bubble{% if cart.item_count > 0 %} site-header__cart-bubble--visible{% endif %}">{{page.handle}}</span>
         </a>
       </div>
     </div>
@@ -185,6 +185,9 @@
   })
 </script>
 
+
+
+          
 {% schema %}
 {
   "name": "Custom Header",

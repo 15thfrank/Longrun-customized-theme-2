@@ -89,14 +89,11 @@
   <script src="{{ 'vendor.min.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'theme.min.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
-
-  <script
-			  src="https://code.jquery.com/jquery-1.12.4.min.js"
-			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-			  crossorigin="anonymous"></script>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </head>
 
-<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{% if request.page_type != blank %}{{ request.page_type | handle }}{% else %}none{% endif %} data-animations">
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{% if request.page_type != blank %}{{ request.page_type | handle }}{% else %}none{% endif %} data-animations loaded">
 
   <a class="visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
@@ -104,7 +101,7 @@
 
   <div class="main-content{% if request.page_type == blank %} main-content--no-template{% endif %}" data-drawer-push>
     <div class="main-content__wrapper">
-      <main class="content-for-layout" id="MainContent" role="main" style="margin-bottom: 0;">
+      <main class="content-for-layout" id="MainContent" role="main" style="margin-bottom: 0 !important;">
         {{ content_for_layout }}
       </main>
 
@@ -117,19 +114,30 @@
     <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
     <li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
   </ul>
-
+  
   {% render 'back-to-top' %}
   {% if page.template_suffix == "custom-our-impact" %}
     {% include 'impact-page-scripts' %}
   {% endif %}
 
-  
-  <script type="text/javascript">
+  {% comment %} <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", () => {
       window.setTimeout(function() {
         document.body.classList.add('loaded');
       }, 1000);
     });
-  </script>
+  </script> {% endcomment %}
+
+  {% if template.name == 'product' or template.name == 'search' or template.name == 'collection' or template.name == 'list-collection' or template.name == 'account' or template.name == 'cart'  or page.url contains "help-center" or page.handle contains 'contact'  or template.name == "login" or template.name == "account" or template.name == "activate_account" or template.name == "addresses" or template.name == "order" or template.name == "register" or template.name == "reset_password" or template.name == "404" or template.name == "article" or template.name == "blog" or template.name == "cart" or section.settings.enable_transparent == false  %}
+    <style>
+      #MainContent {
+        margin-bottom: 10rem !important;
+      }
+      .site-header__wrapper {
+        position: relative !important;
+        background: black !important;
+      }
+    </style>
+  {% endif %}
 </body>
 </html>
