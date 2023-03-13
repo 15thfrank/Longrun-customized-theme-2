@@ -71,8 +71,8 @@
 
     <div class="site-header-sections page-width nullHeader" id="ch-desktop">
       <input type="checkbox" id="ch__mobilemenu">
-      <label for="ch__mobilemenu" class="ch__mobilemenutoggle" style="padding-top: 1.5rem;">
-        <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/menu.png?v=1676473415" alt="mobile menu">
+      <label for="ch__mobilemenu" class="ch__mobilemenutoggle" style="padding-top: 1.5rem;" onclick="mobileNavswitch()">
+        <img src="https://cdn.shopify.com/s/files/1/0271/4045/6534/files/menu.png?v=1676473415" alt="mobile menu" id="mobile_menuIcon">
       </label>
       <div class="site-header__section ch-desktoplogo">
         {% if request.page_type == 'index' %}
